@@ -16,13 +16,14 @@ public class Lesson3_examples {
     public void StartUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        logger.info("Драйвер поднят");
+        logger.info("Драйвер запущен");
     }
 
     @After
     public void End(){
         if (driver!=null)
             driver.quit();
+        logger.info("Драйвер закрыт");
     }
 
     @Test
@@ -40,5 +41,13 @@ public class Lesson3_examples {
     public void WebDriverTest(){
         driver.get("https://otus.ru");
         logger.info("Сайт открыт");
+        try {
+            String titleName = driver.getTitle();
+            assert titleName != null;
+            logger.info("Title страницы называется \"{}\"", titleName);
+        } catch (Exception e) {
+            logger.error("ERROR has occurred at {}: \n {}", getClass(), e);
+            e.printStackTrace();
+        }
     }
 }
